@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Word in Excel File</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .input-container {
+            margin-bottom: 20px;
+        }
+    </style>
+    <!-- Include the xlsx library to handle Excel files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <h1>Search Word in Excel File</h1>
+    <div class="input-container">
+        <label for="searchWord">Enter word to search:</label>
+        <input type="text" id="searchWord" placeholder="Enter word" />
+    </div>
+    <div class="input-container">
+        <label for="fileInput">Select an Excel file:</label>
+        <input type="file" id="fileInput" accept=".xlsx, .xls" />
+    </div>
+    <button onclick="searchWordInExcel()">Search</button>
+
+    <h3 id="result"></h3>
+
+    <script>
+        function searchWordInExcel() {
+            const word = document.getElementById('searchWord').value.trim();
+            const fileInput = document.getElementById('fileInput');
+            const result = document.getElementById('result');
+
+            if (!word) {
+                result.textContent = 'Please enter a word to search.';
+                return;
+            }
+
+            if (fileInput.files.length === 0) {
+                result.textContent = 'Please select an Excel file.';
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const data = new Uint8Array(event.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                let foundCount = 0;
+
+                // Iterate over each sheet
+                workbook.SheetNames.forEach(function(sheetName) {
+                    const sheet = workbook.Sheets[sheetName];
+                    const sheetJson = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+                    // Iterate over each row and cell in the sheet
+                    sheetJson.forEach(function(row) {
+                        row.forEach(function(cell) {
+                            if (typeof cell === 'string' && cell.includes(word)) {
+                                foundCount++;
+                            }
+                        });
+                    });
+                });
+
+                if (foundCount > 0) {
+                    result.textContent = `The word "${word}" was found ${foundCount} time(s) in the Excel file.`;
+                } else {
+                    result.textContent = `The word "${word}" was not found in the Excel file.`;
+                }
+            };
+
+            reader.onerror = function() {
+                result.textContent = 'Error reading file. Please try again.';
+            };
+
+            reader.readAsArrayBuffer(file);
+        }
+    </script>
+</body>
+</html>

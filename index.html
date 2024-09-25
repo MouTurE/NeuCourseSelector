@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- You enter your excel file in this element -->
+    <input id="input-file" type="file" accept=".xlsx">
+    <br>
+    <br>
+
+    <!-- This becomes visible after you select file -->
+    <div style="display: block;" id="course-list-wrapper">
+        <p>Selected Courses:</p>
+        <ul id="list-container">
+            <p id="note">Select your courses by writing their codes below</p>
+        </ul>
+        <br>
+        <div id="input-container">
+            Enter Course Code:
+            <input style="margin-left: 5px; text-transform:uppercase" autocomplete="off" id="input-text" style="margin-left: 5px;" autocapitalize="characters" type="text">
+            <button onclick="searchWordInExcel()" id="add-to-list">Add to list</button>
+        </div>
+    </div>
+
+    <p id="result"></p>
+    
+    <div id="pop-up">
+        <span title="Close popup" onclick="closePopUp()">X</span>
+        <h1 style="color:white;text-shadow: 3px 3px 3px black; margin-left: 5%;">You have multiple groups for the selected course</h1>
+        <p style="margin-left: 5%;">Select one of the groups found below</p>
+        <div id="pop-up-item-container">
+            
+            <div class="pop-up-item">
+                <p style="margin-top: 0px;">Groupname:</p>
+                <p style="margin-top: -10px;">Schedule: </p>
+            </div>
+        
+        </div>
+        
+    </div>
+
+    <br>
+    <button onclick="openPopUp()">Enable popup</button>
+
+    <!-- Necessary Scripts -->
+    <script src="index.js"></script>
+    <script src="filereader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    
+</body>
+</html>
