@@ -8,6 +8,8 @@
 </head>
 <body>
 
+
+    <p>Upload your excel file below before proceding</p>
     <!-- You enter your excel file in this element -->
     <input id="input-file" type="file" accept=".xlsx">
     <br>
@@ -15,19 +17,26 @@
 
     <!-- This becomes visible after you select file -->
     <div style="display: none;" id="course-list-wrapper">
-        <p>Selected Courses:</p>
-        <ul id="list-container">
-            <p id="note">Select your courses by writing their codes below</p>
-        </ul>
+        <hr>
         <br>
         <div id="input-container">
             Enter Course Code:
             <input style="margin-left: 5px; text-transform:uppercase" autocomplete="off" id="input-text" style="margin-left: 5px;" autocapitalize="characters" type="text">
             <button onclick="searchWordInExcel()" id="add-to-list">Add to list</button>
         </div>
+        <p id="result"></p>
+
+        <p>Selected Courses:</p>
+
+        <ul id="list-container">
+            <p id="note">Select your courses by writing their codes above</p>
+        </ul>
+        
+        <button>Start Process</button>
+       
     </div>
 
-    <p id="result"></p>
+   
     
     <div id="pop-up">
         <span title="Close popup" onclick="closePopUp()">X</span>
@@ -45,7 +54,7 @@
     </div>
 
     <br>
-    <button onclick="openPopUp()">Enable popup</button>
+    <button style="display: none;" onclick="openPopUp()">Enable popup (test)</button>
 
     <!-- Necessary Scripts -->
     <script src="index.js"></script>

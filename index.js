@@ -28,7 +28,23 @@ function addToList() {
             document.getElementById("note").style.display = "Block";
         }
 
+        // Removes the item in list
+        const courseName = e.target.parentElement.textContent.replace("×","").toUpperCase();
+        console.log("courseName: " + courseName);
+
+        // Find the index of the entry with the predefined name
+        const index = foundInformations.findIndex(entry => entry[0] === courseName);
+
+        if (index !== -1) {
+            // If found, remove the dictionary associated with the name
+            const removedEntry = foundInformations.splice(index, 1);
+            console.log(`Removed: ${removedEntry[0][0]}`);
+        } else {
+            console.log('Name not found');
+        }
+
         e.target.parentElement.remove();
+        console.log(foundInformations);
 
         
     });
