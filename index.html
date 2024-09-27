@@ -14,7 +14,7 @@
     <p>Upload your excel file below before proceding</p>
     <!-- You enter your excel file in this element -->
     <input id="input-file" type="file" accept=".xlsx">
-    <p>If you don't have the latest timetable, you can get it by <a href="https://docs.neu.edu.tr/library/timetable.xlsx">clicking here</a></p>
+    <p>If you don't have the latest timetable, you can get it by <a target="_blank" href="https://docs.neu.edu.tr/library/timetable.xlsx">clicking here</a></p>
     <br>
     <br>
 
@@ -28,8 +28,10 @@
             <button onclick="searchWordInExcel()" id="add-to-list">Add to list</button>
         </div>
         <p id="result"></p>
+        <p>If you don't know which courses you are taking, you can learn them by <a target="_blank" href="https://register.neu.edu.tr/StudentCourse/Course">clicking here</a></p>
+        
 
-        <p>Selected Courses:</p>
+        <p><b>Selected Courses:</b></p>
 
         <ul id="list-container">
             <p id="note">Select your courses by writing their codes above</p>
@@ -39,9 +41,10 @@
        
     </div>
 
-
+    
     <div style="display:none" id="end-result">
-
+        <p><b>Tip:</b> You can edit the list and process them again for moderation</p>
+        
         <!-- Tab links -->
         <div id="tab">
             <!-- <button class="tablinks" onclick="openTab(event, 'London')">London</button>

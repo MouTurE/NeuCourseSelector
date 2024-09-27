@@ -1,6 +1,8 @@
 
 let foundInformations = []; // Course data gets stored in this
 
+const defaultLayout = document.getElementById("end-result").innerHTML;
+
 
 
 document.getElementById("input-file").addEventListener("change",function(e){
@@ -129,7 +131,7 @@ function startProcess() {
         return;
     }
 
-    document.getElementById("end-result").innerHTML = "<div id='tab'></div>";
+    document.getElementById("end-result").innerHTML = defaultLayout;
     document.getElementById("end-result").style.display = "block";
 
 
