@@ -1,4 +1,5 @@
-let foundInformations = [];
+
+let foundInformations = []; // Course data gets stored in this
 
 
 
@@ -9,6 +10,9 @@ document.getElementById("input-file").addEventListener("change",function(e){
 
 
 function resultMessage(message, color) {
+
+    // Debuging function that creates a message for a brief second with given color
+
     const result = document.getElementById('result');
     result.textContent = message;
     result.style.color = color;
@@ -22,6 +26,10 @@ function resultMessage(message, color) {
 }
 
 function searchWordInExcel() {
+
+    // This function searches input-text value inside excel file, 
+    // if found, function proceeds to get it's informations and stores them in a list
+
     const word = document.getElementById('input-text').value.trim().toUpperCase();
     const fileInput = document.getElementById('input-file');
     
@@ -91,7 +99,7 @@ function searchWordInExcel() {
         if (foundCount > 0) {
             addToList();
             resultMessage(`"${word}" succesfully found`,'green');
-            foundInformations.push([word, courseInfo]);
+            foundInformations.push([word, courseInfo.sort()]);
 
             //console.log (`The word "${word}" was found ${foundCount} time(s) in the Excel file at the following positions: `);
             //courseInfo.forEach(pos => {
@@ -111,3 +119,82 @@ function searchWordInExcel() {
     reader.readAsArrayBuffer(file);
 }
 
+
+function startProcess() {
+
+    
+
+    if (foundInformations.length  < 1) {
+        alert("There is no course data to proceed");
+        return;
+    }
+
+    document.getElementById("end-result").innerHTML = "<div id='tab'></div>";
+    document.getElementById("end-result").style.display = "block";
+
+
+
+    // Iterates through each course in the list
+    for (let i = 0; i < foundInformations.length; i++) {
+
+        // This creates tab for each course in the list
+        const wrapper = document.createElement("div");
+        wrapper.id = "tab - " + foundInformations[i][0];
+        wrapper.className = "tabcontent";
+        document.getElementById("end-result").appendChild(wrapper);
+
+        // Creates tab link so we can reach to contents
+        const tabLink = document.createElement("button");
+        tabLink.className = "tablinks";
+        tabLink.textContent = foundInformations[i][0];
+        tabLink.onclick = function(event){
+            openTab(event, foundInformations[i][0]);
+        };
+        document.getElementById("tab").appendChild(tabLink);
+
+        let previousNames = [];
+
+        // Details about the related course 
+        foundInformations[i][1].forEach(info => {
+           
+            const text = document.createElement("p");
+            text.innerHTML = `<strong>CourseName:</strong> ${info.name} <strong>Professor:</strong> ${info.professor} <strong>Location:</strong> ${info.location} <strong>Time:</strong> ${info.time} <strong>Day:</strong> ${info.day}`;
+            wrapper.appendChild(text);
+
+            if (previousNames.includes(info.name) == false) {
+
+                console.log("Different group spotted!");
+
+                const group = document.createElement("div");
+                group.id = info.name;
+                group.className = "course-group";
+                group.appendChild(text);
+                previousNames.push(info.name);
+                wrapper.appendChild(group);
+                
+                
+
+                
+
+            }else if(previousNames.length > 0) {
+                console.log("Putting this to same group...");
+                const group = document.getElementById(info.name);
+                group.appendChild(text);
+                wrapper.appendChild(group);
+
+            }
+
+            console.log(previousNames);
+            
+        });
+
+        // Opens the first tab by default
+        if (i == 0) {
+            tabLink.click();
+        }
+        
+        
+
+    }
+
+}

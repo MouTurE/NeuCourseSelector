@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Neu Course Selector</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="tabstyles.css">
 </head>
 <body>
 
-
+    <p>This unofficial website aims to reduce the time and effort of getting informations about courses.</p>
+    <br>
     <p>Upload your excel file below before proceding</p>
     <!-- You enter your excel file in this element -->
     <input id="input-file" type="file" accept=".xlsx">
+    <p>If you don't have the latest timetable, you can get it by <a href="https://docs.neu.edu.tr/library/timetable.xlsx">clicking here</a></p>
     <br>
     <br>
 
@@ -32,9 +35,27 @@
             <p id="note">Select your courses by writing their codes above</p>
         </ul>
         
-        <button>Start Process</button>
+        <button onclick="startProcess()" id="start-process">Start Process</button>
        
     </div>
+
+
+    <div style="display:none" id="end-result">
+
+        <!-- Tab links -->
+        <div id="tab">
+            <!-- <button class="tablinks" onclick="openTab(event, 'London')">London</button>
+            <button class="tablinks" onclick="openTab(event, 'Paris')">Paris</button>
+            <button class="tablinks" onclick="openTab(event, 'Tokyo')">Tokyo</button> -->
+        </div>
+
+        
+
+        
+
+    </div>
+
+    
 
    
     
@@ -60,6 +81,6 @@
     <script src="index.js"></script>
     <script src="filereader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    
+    <script src="tabmanager.js"></script>
 </body>
 </html>
